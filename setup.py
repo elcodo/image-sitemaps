@@ -1,19 +1,12 @@
 #!/usr/bin/env python
 
-try:
-    import ez_setup
-    ez_setup.use_setuptools()
-except ImportError:
-    pass
+from setuptools import setup
 
-from setuptools import setup, find_packages
-
-# setup itself.
 setup(
     name = "django-image-sitemaps",
-    version = '1.05',
-    install_requires = ['django>=1.3'],
-    packages = find_packages(),
+    version = '2.0.0',
+    install_requires = ['django>=1.6'],
+    packages = ['imagesitemaps'],
     author = "Francois Vantomme",
     author_email = "akarzim@gmail.com",
     description = "Google Image Sitemaps builder for Django.",
