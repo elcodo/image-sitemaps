@@ -46,15 +46,10 @@ class ImageSitemap(Sitemap):
         urls = []
         get = self._Sitemap__get
 
-        # methods with this prefix will be treated as image tags.
-        ATTR_PREFIX = 'image_'
 
         for item in self.paginator.page(page).object_list:
             loc = "http://%s%s" % (site.domain, get('location', item))
             image_tags = []
-            for attr in dir(self):
-                if attr.startswith(ATTR_PREFIX):
-                    image_tags.append(attr[len(ATTR_PREFIX):])
 
             url_info = {
                 'location':   loc,
