@@ -28,12 +28,15 @@ class ImageSitemap(Sitemap):
         return img.get_absolute_url()
 
     def image_title(self, img):
-        return unicode(img)
+        return ''
 
     def images(self, obj):
-        return [obj]
+        return (None,)
 
-    def get_urls(self, page=1, site=None):
+    def get_urls(self, page=1, site=None, protocol=None):
+
+        protocol = protocol or self.protocol
+
         if site is None:
             if Site._meta.installed:
                 try:
@@ -50,7 +53,7 @@ class ImageSitemap(Sitemap):
         ATTR_PREFIX = 'image_'
 
         for item in self.paginator.page(page).object_list:
-            loc = "http://%s%s" % (site.domain, get('location', item))
+            loc = "%s://%s%s" % (protocol, site.domain, get('location', item))
             image_tags = []
             for attr in dir(self):
                 if attr.startswith(ATTR_PREFIX):
