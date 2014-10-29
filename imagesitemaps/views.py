@@ -26,6 +26,7 @@ def index(request, sitemaps):
     xml = loader.render_to_string('sitemap_index.xml', {'sitemaps': sites})
     return HttpResponse(xml, mimetype='application/xml')
 
+
 def sitemap(request, sitemaps, section=None):
     maps, urls = [], []
     if section is not None:
@@ -40,7 +41,7 @@ def sitemap(request, sitemaps, section=None):
             if callable(site):
                 urls.extend(site().get_urls(page))
             else:
-                urls.extend(site.get_urls(page))
+                urls.extend(site.get_urls(page, protocol='https' if request.is_secure() else 'http'))
         except EmptyPage:
             raise Http404("Page %s empty" % page)
         except PageNotAnInteger:
