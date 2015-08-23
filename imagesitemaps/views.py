@@ -24,7 +24,7 @@ def index(request, sitemaps):
             for page in range(2, pages+1):
                 sites.append('%s://%s%s?p=%s' % (protocol, current_site.domain, sitemap_url, page))
     xml = loader.render_to_string('sitemap_index.xml', {'sitemaps': sites})
-    return HttpResponse(xml, mimetype='application/xml')
+    return HttpResponse(xml, content_type='application/xml')
 
 
 def sitemap(request, sitemaps, section=None):
@@ -47,4 +47,4 @@ def sitemap(request, sitemaps, section=None):
         except PageNotAnInteger:
             raise Http404("No page '%s'" % page)
     xml = smart_str(loader.render_to_string('image_sitemap.xml', {'urlset': urls}))
-    return HttpResponse(xml, mimetype='application/xml')
+    return HttpResponse(xml, content_type='application/xml')
