@@ -39,7 +39,7 @@ def sitemap(request, sitemaps, section=None):
     for site in maps:
         try:
             if callable(site):
-                urls.extend(site().get_urls(page))
+                urls.extend(site().get_urls(page, protocol='https' if request.is_secure() else 'http'))
             else:
                 urls.extend(site.get_urls(page, protocol='https' if request.is_secure() else 'http'))
         except EmptyPage:
